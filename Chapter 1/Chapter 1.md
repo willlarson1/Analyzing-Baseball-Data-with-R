@@ -45,4 +45,6 @@ This chapter gives an overview of key baseball data sets that will be used throu
 
     The inning begins with a single to the right fielder on a line drive. The second batter also singles on a ground ball to the third baseman, who threw the ball to the shortstop. The runner on first base advances to second. The third batter lines into a triple play, on a line drive to the second baseman. The second baseman then tagged second base and doubled the runner off of first base, unassisted.\
 
-5.  The knuckleball was slower than the fastball, starting at a speed of 73mph compared to 81.2. The knuckleball moved far less in horizontal direction (left by .64 inches, compared to left by nearly 5 inches) but a similar amount in the vertical direction. Finally, the knuckleball was located close to the center of the strike zone, whereas the fastball was located in the upper left corner. A knuckleball is difficult to hit due to its unpredictable movement and slow speeds, evidenced here.
+5.  PITCHF/x Record of Several Pitches\
+    \
+    The knuckleball was slower than the fastball, starting at a speed of 73mph compared to 81.2. The knuckleball moved far less in horizontal direction (left by .64 inches, compared to left by nearly 5 inches) but a similar amount in the vertical direction. Finally, the knuckleball was located close to the center of the strike zone, whereas the fastball was located in the upper left corner. A knuckleball is difficult to hit due to its unpredictable movement and slow speeds, evidenced here.
