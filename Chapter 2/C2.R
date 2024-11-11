@@ -178,3 +178,99 @@ write_csv(Mantle, here::here("Chapter 2/mantle.csv"))
 list.files(here::here("Chapter 2"), pattern = "mantle")
 
 # 2.10 Splitting, Applying, and Combining Data
+
+library(Lahman)
+
+Batting_60 <- Batting |> 
+  filter(yearID >= 1960, yearID <= 1969)
+
+hr_60 <- Batting_60 |> 
+  group_by(playerID) |> 
+  summarize(HR = sum(HR))
+
+hr_60 |> 
+  arrange(desc(HR)) |>
+  slice(1:4)
+
+hr_leader <- function(data) {
+  data |> 
+    group_by(playerID) |> 
+    summarize(HR = sum(HR)) |>
+    arrange(desc(HR)) |>
+    slice(1)
+}
+
+Batting_decade <- Batting |>
+  mutate(decade = 10 * floor(yearID / 10)) |>
+  group_by(decade)
+
+decades <- Batting_decade |>
+  group_keys() |>
+  pull("decade")
+decades
+
+Batting_decade |>
+  group_split() |>
+  map(hr_leader) |>
+  set_names(decades) |>
+  bind_rows(.id = "decade")
+
+# 2.10.2
+
+long_careers <- Batting |> 
+  group_by(playerID) |> 
+  summarize(
+    tAB = sum(AB, na.rm = TRUE),
+    tHR = sum(HR, na.rm = TRUE),
+    tSO = sum(SO, na.rm = TRUE)
+  )
+
+Batting_5000 <- long_careers |>
+  filter(tAB >= 5000)
+Batting_5000 |>
+  slice(1:6)
+
+ggplot(Batting_5000, aes(x = tHR / tAB, y = tSO / tAB)) +
+  geom_point() + geom_smooth(color = crcblue)
+
+
+# Exercises
+
+# Exercise 1
+# a
+SB <- c(1406, 938, 896, 808, 741, 738, 689, 580, 514, 
+        509, 506, 504, 474)
+CS <- c(335, 307, 178, 146, 173, 92, 162, 148, 141, 117,
+        136, 131, 114)
+G <- c(3081, 2616, 3035, 2502, 2826, 2476, 2649, 2573, 
+       2986, 2653, 2601, 2683, 2379)
+# b
+SB.Attempt <- SB + CS
+SB.Attempt
+# c
+Success.Rate <- SB / SB.Attempt
+Success.Rate
+# d 
+SB.Game <- SB / G
+SB.Game
+# e
+plot(SB.Game, Success.Rate)
+
+# Exercise 2
+# a
+outcomes <- c("Single", "Out", "Out", "Single", "Out", "Double", 
+              "Out", "Walk", "Out", "Single")
+# b
+table(outcomes)
+# c
+f.outcomes <- factor(
+  outcomes, 
+  levels = c("Out", "Walk", "Single", "Double")
+)
+table(f.outcomes)
+# d
+outcomes == "Walk"
+sum(outcomes == "Walk")
+
+# Exercise 3
+# a
